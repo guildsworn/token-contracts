@@ -12,24 +12,6 @@ const DEFAULT_BRIDGE_TO_REALWORLD_PRICE = process.env.DEFAULT_BRIDGE_TO_REALWORL
 const DEFAULT_ALLOWED_DESTINATION_CHAINS = process.env.DEFAULT_ALLOWED_DESTINATION_CHAINS ? Array.from(process.env.DEFAULT_ALLOWED_DESTINATION_CHAINS.split(','),Number): [-1, 0, 1];
 
 const networkConfig = {
-    80001: {
-        name: "mumbai",
-        slotPrice: ethers.utils.parseUnits("10", "ether"),        
-        startingSlots: 3,
-        eldDiscount: 50,
-        eldKickback: 10,
-        nftRoyaltyVault : "0xbc56536f82834f23e14E9a805AFE8692E37B2BDc",
-        nftRoyalty: 1000,
-    },
-    137: {
-        name: "Poligon",
-        dexPairAddressEldUsdt: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", // TODO: change this
-        lockerVaultAddress: "", // TODO: change this
-        storeVault: "", // TODO: change this
-        stableTokenAddress: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", // TODO: USDt
-        nftRoyaltyVault : "0xbc56536f82834f23e14E9a805AFE8692E37B2BDc", // TODO: change this to the real address
-        nftRoyalty: 1000, // TODO: change this
-    },
 }
 
 // const DECIMALS = "18"

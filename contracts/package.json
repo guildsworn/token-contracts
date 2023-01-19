@@ -1,0 +1,33 @@
+{
+  "name": "@guildsworn/token-contracts",
+  "description": "Token smart contracts for eldfal",
+  "version": "1.0.0",
+  "files": [
+    "**/*.sol",
+    "/build/contracts/*.json",
+    "!/mocks/**/*"
+  ],
+  "scripts": {
+    "prepare": "bash ../scripts/prepare-contracts-package.sh",
+    "prepare-docs": "cd ..; npm run prepare-docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guildsworn/token-contracts.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "security",
+    "eldfall",
+    "guildsworn"
+  ],
+  "author": "guildsworn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guildsworn/token-contracts/issues"
+  },
+  "homepage": "https://www.eldfall.com/"
+}

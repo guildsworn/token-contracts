@@ -1,17 +1,13 @@
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+# guildsworn-token-contracts
 
 Try running some of the following tasks:
 
 ```shell
 yarn install
-npx hardhat generateInterfaces 
+npx hardhat generate-interface CharacterNftContract
 npx hardhat compile
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-
-npx hardhat coverage
+yarn run test
+yarn run coverage
 ```
 
 ## Reserved chains

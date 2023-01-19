@@ -1,11 +1,31 @@
-node_modules
-.env
+# Coverage directory used by tools like istanbul
 coverage
 coverage.json
-typechain
-typechain-types
+coverageEnv
 
-#Hardhat files
-cache
-artifacts
+# Dependency directory
+node_modules
+
+# Debug log from npm
+npm-debug.log
+
+# local env variables
+.env
+
+# macOS
+.DS_Store
+
+# only used to package @openzeppelin/contracts
+contracts/build/
+contracts/README.md
+
+# temporary artifact from solidity-coverage
+allFiredEvents
+.coverage_artifacts
+.coverage_cache
+.coverage_contracts
+
+# Hardhat
+/cache
+/artifacts
 
