@@ -2,19 +2,26 @@
 
 
 # Installing the package
+## 1. Creating Personal access token (classic) on GitHub
+https://github.com/settings/tokens
+## 2. Preparing env
 Create an `.npmrc` file in the same location as the `package.json` with this content.
 ```
 registry=https://registry.yarnpkg.com/
 
 @guildsworn:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=<your auth token>
+//npm.pkg.github.com/:_authToken=<your personal access token>
 always-auth=true
 
 ```
-## How to get the token?
-
-https://github.com/settings/tokens
-
+## 3. Installing the package
+```shell
+npm install @guildsworn/token-contracts@1.0.4
+```
+or via yarn
+```shell
+yarn add @guildsworn/token-contracts@1.0.4
+```
 
 # Compiling, building
 Try running some of the following tasks:
