@@ -1,7 +1,7 @@
 {
   "name": "@guildsworn/token-contracts",
   "description": "Token smart contracts for eldfal",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "files": [
     "**/*.sol",
     "/build/contracts/*.json",
@@ -11,10 +11,7 @@
     "prepare": "bash ../scripts/prepare-contracts-package.sh",
     "prepare-docs": "cd ..; npm run prepare-docs"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/guildsworn/token-contracts.git"
-  },
+  "repository": "https://github.com/guildsworn/token-contracts.git",
   "keywords": [
     "solidity",
     "ethereum",
