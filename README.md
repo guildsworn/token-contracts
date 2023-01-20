@@ -1,5 +1,22 @@
 # guildsworn-token-contracts
 
+
+# Installing the package
+Create `.npmrc` file in folder where you have `package.json`
+```
+registry=https://registry.yarnpkg.com/
+
+@guildsworn:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=<your auth token>
+always-auth=true
+
+```
+## How to get the token?
+
+https://github.com/settings/tokens
+
+
+# Compiling, building
 Try running some of the following tasks:
 
 ```shell
