@@ -16,11 +16,11 @@ always-auth=true
 ```
 ## 3. Installing the package
 ```shell
-npm install @guildsworn/token-contracts@1.0.4
+npm install @guildsworn/token-contracts
 ```
 or via yarn
 ```shell
-yarn add @guildsworn/token-contracts@1.0.4
+yarn add @guildsworn/token-contracts
 ```
 
 # Compiling, building
