@@ -2,7 +2,7 @@
 
 
 # Installing the package
-Create `.npmrc` file in folder where you have `package.json`
+Create an `.npmrc` file in the same location as the `package.json` with this content.
 ```
 registry=https://registry.yarnpkg.com/
 
