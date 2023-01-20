@@ -1,7 +1,7 @@
 {
   "name": "@guildsworn/token-contracts",
   "description": "Token smart contracts for eldfal",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "files": [
     "**/*.sol",
     "/build/contracts/*.json",
@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/guildsworn/token-contracts/issues"
   },
-  "homepage": "https://www.eldfall.com/"
+  "homepage": "https://www.eldfall.com/",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
 }

@@ -7,7 +7,7 @@ cd "$(git rev-parse --show-toplevel)"
 if [[ ! -v ALREADY_COMPILED ]]; then
   yarn run clean
   yarn run prepare
-  #yarn run prepack
+  yarn run prepack
 fi
 
 cp README.md contracts/

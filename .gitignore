@@ -18,6 +18,7 @@ npm-debug.log
 # only used to package @openzeppelin/contracts
 contracts/build/
 contracts/README.md
+contracts/*.log
 
 # temporary artifact from solidity-coverage
 allFiredEvents
