@@ -14,17 +14,7 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
             log: true,
             waitConfirmations: confirmations, // variable from config
         })
-        log(`MOCK Stable Token as USDT Instance at ${deployContract.address}`)        
-
-        // Deployer for UniswapV2PairMockContract only in development
-        args = [];
-        deployContract = await deploy("UniswapV2PairMockContract", {
-            from: deployer,
-            args: args,
-            log: true,
-            waitConfirmations: confirmations, // variable from config
-        });
-        log(`MOCK Uniswap V2 Pair Mock Contract Instance at ${deployContract.address}`);
+        log(`MOCK Stable Token as USDT Instance at ${deployContract.address}`)
     }
 }
 module.exports.tags = ["all", "stage1", "deploy", "test"]

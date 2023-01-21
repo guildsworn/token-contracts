@@ -60,20 +60,23 @@ describe("CharacterNftTest_4_MODERATOR", function () {
         await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character1Hash);
         token2 = 1;
 
-        const LockerFactory = await ethers.getContractFactory("LockerContract");
+        const LockerFactory = await ethers.getContractFactory("LockerMockContract");
         LockerInstance = await LockerFactory.deploy();
         await LockerInstance.deployed();
-        await LockerInstance.init(
-            defaultAdmin.address,
-            moderator.address,
-            CharacterNftInstance.address,
-            eldToken.address,
-            priceResolver.address,
-            vault.address,
-            signer.address,
-            10,
-            11
-        );        
+        // await LockerInstance.init(
+        //     defaultAdmin.address,
+        //     moderator.address,
+        //     CharacterNftInstance.address,
+        //     eldToken.address,
+        //     priceResolver.address,
+        //     vault.address,
+        //     signer.address,
+        //     10,
+        //     11
+        // );        
+    });
+    it("owner", async function () {
+        expect(await CharacterNftInstance.connect(tester1).owner()).to.equal(moderator.address);
     });
 
     it("setTokenURI - Fail if not called from moderator", async function () {
@@ -127,57 +130,31 @@ describe("CharacterNftTest_4_MODERATOR", function () {
         expect(await CharacterNftInstance.isTransferable(character2Hash)).to.equal(true);
     });
 
-    it("setWhitelistLocker - Fail if not called from moderator", async function () {
-        await expect(CharacterNftInstance.connect(tester1).setWhitelistLocker(LockerInstance.address, true)).to.be.reverted;
+    it("setWhitelistGuild - Fail if not called from moderator", async function () {
+        await expect(CharacterNftInstance.connect(tester1).setWhitelistGuild(LockerInstance.address, true)).to.be.reverted;
     });
-    it("setWhitelistLocker - Fail if same value", async function () {
-        await CharacterNftInstance.connect(moderator).setWhitelistLocker(LockerInstance.address, true);
-        await expect(CharacterNftInstance.connect(moderator).setWhitelistLocker(LockerInstance.address, true)).to.be.revertedWith('Value is already set!');
+    it("setWhitelistGuild - Fail if same value", async function () {
+        await CharacterNftInstance.connect(moderator).setWhitelistGuild(LockerInstance.address, true);
+        await expect(CharacterNftInstance.connect(moderator).setWhitelistGuild(LockerInstance.address, true)).to.be.revertedWith('Value is already set!');
     });
-    it("setWhitelistLocker - Sucess", async function () {
-        await CharacterNftInstance.connect(moderator).setWhitelistLocker(LockerInstance.address, true);
-        expect(await CharacterNftInstance.isLockerWhitelisted(LockerInstance.address)).to.equal(true);
-        expect(await CharacterNftInstance.isLockerWhitelisted(tester1.address)).to.equal(false);
+    it("setWhitelistGuild - Sucess", async function () {
+        await CharacterNftInstance.connect(moderator).setWhitelistGuild(LockerInstance.address, true);
+        expect(await CharacterNftInstance.isGuildWhitelisted(LockerInstance.address)).to.equal(true);
+        expect(await CharacterNftInstance.isGuildWhitelisted(tester1.address)).to.equal(false);
     });
 
-    it("externalUnlockToken - Fail if not called from moderator", async function () {
+    it("externalUnlockCharacter - Fail if not called from moderator", async function () {
         let extraData = "0x";
-        await CharacterNftInstance.connect(moderator).setWhitelistLocker(LockerInstance.address, true);
-        await CharacterNftInstance.connect(tester1).lockToken(token1, LockerInstance.address, extraData);
+        await CharacterNftInstance.connect(moderator).setWhitelistGuild(LockerInstance.address, true);
+        await CharacterNftInstance.connect(tester1).lockCharacter(0, token1, LockerInstance.address, extraData);
 
-        let signitureMessageHash = await LockerInstance.getMessageHash(tester1.address, token1, extraData);
-        let signitureMessageBytesHash = ethers.utils.arrayify(signitureMessageHash)
-        let signiture = await signer.signMessage(signitureMessageBytesHash);
-
-        await expect(CharacterNftInstance.connect(tester1).externalUnlockToken(token1, extraData, signiture)).to.be.reverted;
+        await expect(CharacterNftInstance.connect(tester1).externalUnlockCharacter(tester1.address, 0, token1, LockerInstance.address, extraData)).to.be.reverted;
     });
-    it("externalUnlockToken - Fail if Token is not locked!", async function () {
+    it("externalUnlockCharacter - Sucess", async function () {
         let extraData = "0x";
-        let signitureMessageHash = await LockerInstance.getMessageHash(tester1.address, token1, extraData);
-        let signitureMessageBytesHash = ethers.utils.arrayify(signitureMessageHash)
-        let signiture = await signer.signMessage(signitureMessageBytesHash);
-        await expect(CharacterNftInstance.connect(moderator).externalUnlockToken(token1, extraData, signiture)).to.be.revertedWith('Token is not locked!');
-    });
-    it("externalUnlockToken - Fail if Wrong signature!", async function () {
-        let extraData = "0x";
-        await CharacterNftInstance.connect(moderator).setWhitelistLocker(LockerInstance.address, true);
-        await CharacterNftInstance.connect(tester1).lockToken(token1, LockerInstance.address, extraData);
-        
-        let signitureMessageHash = await LockerInstance.getMessageHash(tester1.address, token1, extraData);
-        let signitureMessageBytesHash = ethers.utils.arrayify(signitureMessageHash)
-        let signiture = await tester1.signMessage(signitureMessageBytesHash);
-        await expect(CharacterNftInstance.connect(moderator).externalUnlockToken(token1, extraData, signiture)).to.be.revertedWith('Wrong signature!');
-    });
-    it("externalUnlockToken - Sucess", async function () {
-        let extraData = "0x";
-        await CharacterNftInstance.connect(moderator).setWhitelistLocker(LockerInstance.address, true);
-        await CharacterNftInstance.connect(tester1).lockToken(token1, LockerInstance.address, extraData);
-
-        let signitureMessageHash = await LockerInstance.getMessageHash(tester1.address, token1, extraData);
-        let signitureMessageBytesHash = ethers.utils.arrayify(signitureMessageHash)
-        let signiture = await signer.signMessage(signitureMessageBytesHash);
-
-        await CharacterNftInstance.connect(moderator).externalUnlockToken(token1, extraData, signiture);
-        expect(await CharacterNftInstance.isTokenLocked(token1)).to.equal(false);
+        await CharacterNftInstance.connect(moderator).setWhitelistGuild(LockerInstance.address, true);
+        await CharacterNftInstance.connect(tester1).lockCharacter(0, token1, LockerInstance.address, extraData);
+        await CharacterNftInstance.connect(moderator).externalUnlockCharacter(tester1.address, 0, token1, LockerInstance.address, extraData);
+        expect(await CharacterNftInstance.isCharacterLocked(token1)).to.equal(false);
     });
 });

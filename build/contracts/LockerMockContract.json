@@ -1,0 +1,72 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "LockerMockContract",
+  "sourceName": "contracts/mocks/LockerMockContract.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "userAddress_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slotId_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nftId_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "extraData_",
+          "type": "bytes"
+        }
+      ],
+      "name": "lockCharacter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "userAddress_",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slotId_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "characterId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "extraData_",
+          "type": "bytes"
+        }
+      ],
+      "name": "unlockCharacter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b50610180806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c8063d1141a491461003b578063f2754e4e1461003b575b600080fd5b61004f610049366004610067565b50505050565b005b634e487b7160e01b600052604160045260246000fd5b6000806000806080858703121561007d57600080fd5b84356001600160a01b038116811461009457600080fd5b93506020850135925060408501359150606085013567ffffffffffffffff808211156100bf57600080fd5b818701915087601f8301126100d357600080fd5b8135818111156100e5576100e5610051565b604051601f8201601f19908116603f0116810190838211818310171561010d5761010d610051565b816040528281528a602084870101111561012657600080fd5b8260208601602083013760006020848301015280955050505050509295919450925056fea26469706673582212209d93e6feea76aacf56e2dca7b3453f74705b04fac4b6107d127fffcdb0d5bab364736f6c63430008090033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c8063d1141a491461003b578063f2754e4e1461003b575b600080fd5b61004f610049366004610067565b50505050565b005b634e487b7160e01b600052604160045260246000fd5b6000806000806080858703121561007d57600080fd5b84356001600160a01b038116811461009457600080fd5b93506020850135925060408501359150606085013567ffffffffffffffff808211156100bf57600080fd5b818701915087601f8301126100d357600080fd5b8135818111156100e5576100e5610051565b604051601f8201601f19908116603f0116810190838211818310171561010d5761010d610051565b816040528281528a602084870101111561012657600080fd5b8260208601602083013760006020848301015280955050505050509295919450925056fea26469706673582212209d93e6feea76aacf56e2dca7b3453f74705b04fac4b6107d127fffcdb0d5bab364736f6c63430008090033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

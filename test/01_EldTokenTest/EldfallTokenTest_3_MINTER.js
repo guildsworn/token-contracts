@@ -46,4 +46,9 @@ describe("EldfallTokenTest_3_MINTER", function () {
     it("Should fail if not called from minter", async function () {
         await expect(EldTokenInstance.connect(tester).safeMint(tester.address, 1234)).to.be.reverted;
     });
+    it("Can add another minter as admin", async function () {
+        await EldTokenInstance.connect(defaultAdmin).grantRole(minterHash, tester1.address);
+        await EldTokenInstance.connect(tester1).safeMint(tester1.address, 1234);
+        expect(await EldTokenInstance.balanceOf(tester1.address)).to.equal("1234");
+    });
 });

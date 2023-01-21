@@ -34,35 +34,30 @@ yarn run test
 yarn run coverage
 ```
 
-## Reserved chains
--1: Real World
-0: Backend - central database
-X: Any other blockchain ChainId
-
-## Deploy
-### Before deploy
+# Smart Contract deploy
+## Before deploy
 1. Create `.env` file in root folder or copy and check `.env.example`
 2. Check and modify `helper-hardhat-config.js` - network specific settings.
 
 ### [Deploy parameters](https://github.com/wighawag/hardhat-deploy#1-hardhat-deploy)
 
-### Deploy on hardhat local network, reset deployment if exists and generate one json file for frontend 
+## Deploy on hardhat local network, reset deployment if exists and generate deployment files
 ```shell
-npx hardhat deploy --write true --export eldfallnetworks.json --reset
+npx hardhat deploy --write true --reset
 ```
 
-### Deploy on testnet, generate one json file for frontend
+## Deploy on Oasis Sapphire Testnet, generate deployment files
 ```shell
-npx hardhat deploy --write true --export eldfallnetworks.json --network testnet
+npx hardhat deploy --write true --network oasis_sapphire_testnet
 ```
 
-### Deploy on mainnet
-#### Stage 1
+## Deploy on Oasis Sapphire Mestnet, generate deployment files
 ```shell
-npx hardhat deploy --tags stage1 --write true --export eldfallnetworks.json --network mainnet
+npx hardhat deploy --write true --network oasis_sapphire_mainnet
 ```
-#### Manual create currency pair on DEX with ELD/USDT and update dexPairAddressEldUsdt in helper-hardhat-config.js
-#### Stage 2
+
+# Publish the NPM package
 ```shell
-npx hardhat deploy --tags stage2 --write true --export eldfallnetworks.json --network mainnet
+cd contracts/ && yarn prepare
+yarn publish
 ```

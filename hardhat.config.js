@@ -13,7 +13,6 @@ require('solidity-coverage');
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 const ADMIN_PRIVATE_KEY = process.env.ADMIN_PRIVATE_KEY;
 const MODERATOR_PRIVATE_KEY = process.env.MODERATOR_PRIVATE_KEY
-const BACKEND_PRIVATE_KEY = process.env.BACKEND_PRIVATE_KEY
 const PLAYER1_PRIVATE_KEY = process.env.PLAYER1_PRIVATE_KEY
 const PLAYER2_PRIVATE_KEY = process.env.PLAYER2_PRIVATE_KEY
 const PLAYER3_PRIVATE_KEY = process.env.PLAYER3_PRIVATE_KEY
@@ -30,9 +29,6 @@ if (ADMIN_PRIVATE_KEY) {
 }
 if (MODERATOR_PRIVATE_KEY) {
     ACCOUNTS.push(MODERATOR_PRIVATE_KEY);
-}
-if (BACKEND_PRIVATE_KEY) {
-    ACCOUNTS.push(BACKEND_PRIVATE_KEY);
 }
 if (PLAYER1_PRIVATE_KEY) {
     ACCOUNTS.push(PLAYER1_PRIVATE_KEY);
@@ -58,7 +54,7 @@ module.exports = {
   defaultNetwork: "hardhat",
     networks: {
         hardhat: {
-            chainId: 80001,
+            chainId: 31337,
             forking: {
                 url: 'https://polygon-mumbai.g.alchemy.com/v2/51n2d5BiNg6J_r5hKGb7koXoQquL4FZ2',
             },
@@ -72,7 +68,7 @@ module.exports = {
             saveDeployments: true,
             tags: ["local"]
         },
-        oasis_testnet: {
+        oasis_sapphire_testnet: {
           url: `https://testnet.sapphire.oasis.dev`,
           chainId: 23295,
           accounts: ACCOUNTS,
@@ -80,7 +76,7 @@ module.exports = {
           saveDeployments: true,
           tags: ["test", "oasis", "testnet"]
         },
-        oasis_mainnet: {
+        oasis_sapphire_mainnet: {
           url: `https://sapphire.oasis.io`,
           chainId: 23294,
           accounts: ACCOUNTS,
@@ -120,9 +116,6 @@ module.exports = {
     },
     moderator: {
       default: 2,
-    },
-    backend: {
-      default: 3,
     },
     player1: {
       default: 4,

@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "./interfaces/ICharacterNftContract.sol";
 import "./interfaces/IGuild.sol";
 
-contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721URIStorage,	AccessControlEnumerable																
+contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721URIStorage,	AccessControlEnumerable														
 {
 	using Counters for Counters.Counter;
 
@@ -142,7 +142,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	}
 
 	function setWhitelistGuild(address guildAddress_, bool isWhitelisted_) public onlyRole(MODERATOR_ROLE) {
-		require(_whitelistedGuilds[guildAddress_] != isWhitelisted_);
+		require(_whitelistedGuilds[guildAddress_] != isWhitelisted_, "Value is already set!");
 		emit WhitelistGuildChanged(guildAddress_, _whitelistedGuilds[guildAddress_], isWhitelisted_);
 		_whitelistedGuilds[guildAddress_] = isWhitelisted_;
 	}
@@ -159,7 +159,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	function lockCharacter(uint slotId_, uint characterId_, address guildAddress_, bytes memory extraData_) public virtual {
 		require(_msgSender() == ownerOf(characterId_), "You are not the owner!");
 		require(_whitelistedGuilds[guildAddress_], "Guild is not whitelisted!");
-		require(!isTokenLocked(characterId_), "Character is already locked!");
+		require(!isCharacterLocked(characterId_), "Character is already locked!");
 		
 		IGuild(guildAddress_).lockCharacter(_msgSender(), slotId_, characterId_, extraData_);
         _characterLockedAt[characterId_] = guildAddress_;
@@ -177,7 +177,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	}
 	
 	function burn(uint256 characterId_) public {
-		if (!isTokenLocked(characterId_)) {
+		if (!isCharacterLocked(characterId_)) {
             require(_msgSender() == ownerOf(characterId_), "You are not the owner!");
         } else {
             require(_msgSender() == _characterLockedAt[characterId_], "You are not the owner!");
@@ -233,11 +233,11 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		return _whitelistedGuilds[guildAddress_];
 	}
 
-	function getTokenLockedAt(uint tokenId_) public view returns (address) {
+	function getCharacterLockedAt(uint tokenId_) public view returns (address) {
 		return _characterLockedAt[tokenId_];
 	}
 
-	function isTokenLocked(uint tokenId_) public view returns (bool) {
+	function isCharacterLocked(uint tokenId_) public view returns (bool) {
 		return _characterLockedAt[tokenId_] != address(0);
 	}
 
@@ -269,7 +269,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		address to,
 		uint256 tokenId
 	) internal override(ERC721, ERC721Enumerable) {
-		require(!isTokenLocked(tokenId), "Token is locked!");
+		require(!isCharacterLocked(tokenId), "Token is locked!");
 		if (from != address(0) && to != address(0) && from != to) {
 			require(
 				isTransferable(getCharactersClass(tokenId)),

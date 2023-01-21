@@ -13,3 +13,6 @@ fi
 cp README.md contracts/
 mkdir contracts/build contracts/build/contracts
 cp -r build/contracts/*.json contracts/build/contracts
+
+mkdir -p contracts/deployments
+cp -r deployments/ contracts/deployments/

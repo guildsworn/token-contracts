@@ -17,9 +17,9 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
             minters.push(minterAddress);
         }
 
-        // Add store contract to minter role
-        let storeContractInstance = await ethers.getContract("CharacterStoreContract", deployer)
-        minters.push(storeContractInstance.address);
+        // // Add store contract to minter role
+        // let storeContractInstance = await ethers.getContract("CharacterStoreContract", deployer)
+        // minters.push(storeContractInstance.address);
 
         // Initialization
         let nftRoyaltyVault = network.nftRoyaltyVault ? network.nftRoyaltyVault : DEFAULT_NFT_ROYALTY_VAULT;
