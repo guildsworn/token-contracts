@@ -12,6 +12,7 @@ yarn-error.log
 
 # local env variables
 .env
+.npmrc
 
 # macOS
 .DS_Store
