@@ -1,6 +1,6 @@
 {
   "name": "@guildsworn/token-contracts",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Token smart contracts for eldfal",
   "homepage": "https://www.eldfall.com/",
   "repository": {
@@ -25,9 +25,12 @@
   "author": "guildsworn",
   "license": "MIT",
   "files": [
-    "**/*.sol",
-    "/artifacts/contracts/**.json",
-    "/deployments/**"
+    "/contracts/interfaces/**.sol",
+    "/contracts/*.sol",
+    "/artifacts/contracts/*.sol/*.json",
+    "/artifacts/contracts/interfaces/*.json",
+    "/deployments/*/.chainId",
+    "/deployments/*/*.json"
   ],
   "scripts": {
     "test": "npx hardhat test",
