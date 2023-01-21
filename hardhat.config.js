@@ -1,6 +1,7 @@
 require('dotenv').config();
+require("@oasisprotocol/sapphire-hardhat");
 require("@nomicfoundation/hardhat-toolbox");
-require("@nomicfoundation/hardhat-chai-matchers")
+require("@nomicfoundation/hardhat-chai-matchers");
 require("@nomiclabs/hardhat-etherscan");
 require("@nomiclabs/hardhat-ethers");
 require("hardhat-if-gen");
@@ -12,10 +13,10 @@ require('solidity-coverage');
 
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 const ADMIN_PRIVATE_KEY = process.env.ADMIN_PRIVATE_KEY;
-const MODERATOR_PRIVATE_KEY = process.env.MODERATOR_PRIVATE_KEY
-const PLAYER1_PRIVATE_KEY = process.env.PLAYER1_PRIVATE_KEY
-const PLAYER2_PRIVATE_KEY = process.env.PLAYER2_PRIVATE_KEY
-const PLAYER3_PRIVATE_KEY = process.env.PLAYER3_PRIVATE_KEY
+const MODERATOR_PRIVATE_KEY = process.env.MODERATOR_PRIVATE_KEY;
+const PLAYER1_PRIVATE_KEY = process.env.PLAYER1_PRIVATE_KEY;
+const PLAYER2_PRIVATE_KEY = process.env.PLAYER2_PRIVATE_KEY;
+const PLAYER3_PRIVATE_KEY = process.env.PLAYER3_PRIVATE_KEY;
 const REPORT_GAS = process.env.REPORT_GAS;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY;
@@ -54,10 +55,7 @@ module.exports = {
   defaultNetwork: "hardhat",
     networks: {
         hardhat: {
-            chainId: 31337,
-            forking: {
-                url: 'https://polygon-mumbai.g.alchemy.com/v2/51n2d5BiNg6J_r5hKGb7koXoQquL4FZ2',
-            },
+            chainId: 31337,            
             live: false,
             saveDeployments: true,
             tags: ["test", "local"]
@@ -118,13 +116,13 @@ module.exports = {
       default: 2,
     },
     player1: {
-      default: 4,
+      default: 3,
     },
     player2: {
-      default: 5,
+      default: 4,
     },
     player3: {
-      default: 6,
+      default: 5,
     },
   },
   mocha: {

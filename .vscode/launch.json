@@ -7,39 +7,21 @@
           {
             "type": "node",
             "request": "launch",
-            "name": "hardhat generate interfaces",
-            "skipFiles": ["<node_internals>/**"],
-            "runtimeExecutable": "npx",
-            "args": ["hardhat","generateInterfaces"],
-            "cwd": "${workspaceFolder}"
-          },
-          {
-            "type": "node",
-            "request": "launch",
             "name": "hardhat deploy",
             "skipFiles": ["<node_internals>/**"],
             "runtimeExecutable": "npx",
-            "args": ["hardhat", "deploy", "--write", "true", "--export", "eldfallnetworks.json", "--reset"],
+            "args": ["hardhat", "deploy", "--write", "true", "--reset"],
             "cwd": "${workspaceFolder}"
           },
           {
             "type": "node",
             "request": "launch",
-            "name": "hardhat deploy testnet",
+            "name": "hardhat deploy oasis_sapphire_testnet",
             "skipFiles": ["<node_internals>/**"],
             "runtimeExecutable": "npx",
-            "args": ["hardhat", "deploy", "--network", "testnet", "--write", "true", "--export", "eldfallnetworks.json"],
+            "args": ["hardhat", "deploy", "--network", "oasis_sapphire_testnet", "--write", "true"],
             "cwd": "${workspaceFolder}"
-          },
-          {
-            "type": "node",
-            "request": "launch",
-            "name": "hardhat deploy test data",
-            "skipFiles": ["<node_internals>/**"],
-            "runtimeExecutable": "npx",
-            "args": ["hardhat", "deploy", "--tags", "stage3"],
-            "cwd": "${workspaceFolder}"
-          },
+          },          
           {
             "type": "node",
             "request": "launch",

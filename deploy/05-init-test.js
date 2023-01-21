@@ -1,8 +1,6 @@
 const { 
     developmentChains, 
-    TEST_INITIAL_STABLE_COIN_AMOUNT,    
-    TEST_RESERVE_ELD_COIN_AMOUNT,
-    TEST_RESERVE_STABLE_COIN_AMOUNT } = require("../helper-hardhat-config")
+    TEST_INITIAL_STABLE_COIN_AMOUNT} = require("../helper-hardhat-config")
 
 module.exports = async ({ getNamedAccounts, deployments, network }) => {
     const { log } = deployments;

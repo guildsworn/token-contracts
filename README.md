@@ -28,10 +28,16 @@ Try running some of the following tasks:
 
 ```shell
 yarn install
-npx hardhat generate-interface CharacterNftContract
-npx hardhat compile
-yarn run test
-yarn run coverage
+yarn clean
+yarn compile
+yarn test
+yarn coverage
+yarn docs
+```
+## Updating interfaces
+```shell
+npx hardhat generate-interface [Contract name]
+cp contracts/[Contract name] contracts/interfaces/
 ```
 
 # Smart Contract deploy
