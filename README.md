@@ -50,6 +50,6 @@ npx hardhat deploy --write true --network oasis_sapphire_mainnet
 
 # Publish the NPM package
 ```shell
-cd contracts/ && yarn prepare
+cd contracts/ && yarn compile
 yarn publish --access public
 ```
