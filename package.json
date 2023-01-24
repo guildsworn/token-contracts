@@ -1,6 +1,6 @@
 {
   "name": "@guildsworn/token-contracts",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Token smart contracts for eldfal",
   "homepage": "https://www.eldfall.com/",
   "repository": {
@@ -9,9 +9,6 @@
   },
   "bugs": {
     "url": "https://github.com/guildsworn/token-contracts/issues"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "solidity",
