@@ -13,4 +13,4 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
     });
     log(`EldfallTokenContract instance at ${deployContract.address}`);
 }
-module.exports.tags = ["all", "stage1", "deploy", "eldtoken"];
+module.exports.tags = ["all", "deploy", "eldtoken"];

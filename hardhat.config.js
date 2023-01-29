@@ -58,6 +58,7 @@ module.exports = {
             chainId: 31337,            
             live: false,
             saveDeployments: true,
+            nftRoyaltyVault : "0xbc56536f82834f23e14E9a805AFE8692E37B2BDc",
             tags: ["test", "local"]
         },
         localhost: {
@@ -70,7 +71,7 @@ module.exports = {
           url: `https://testnet.sapphire.oasis.dev`,
           chainId: 23295,
           accounts: ACCOUNTS,
-          live: true,
+          live: false,
           saveDeployments: true,
           tags: ["test", "oasis", "testnet"]
         },
@@ -130,5 +131,5 @@ module.exports = {
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY
-  },
+  }
 };

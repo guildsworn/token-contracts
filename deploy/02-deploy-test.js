@@ -1,11 +1,9 @@
-const { developmentChains } = require("../helper-hardhat-config")
-
 module.exports = async ({ getNamedAccounts, deployments, network }) => {
     const { deploy, log } = deployments;
     const { deployer } = await getNamedAccounts();
     const confirmations = network.blockConfirmations || 1;
 
-    if (developmentChains.includes(network.name)) {
+    if (!network.live) {
         // Deployer for ERC20MockContract only in development
         let args = []
         let deployContract = await deploy("ERC20MockContract", {
@@ -17,4 +15,4 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
         log(`MOCK Stable Token as USDT Instance at ${deployContract.address}`)
     }
 }
-module.exports.tags = ["all", "stage1", "deploy", "test"]
+module.exports.tags = ["all", "deploy", "test"]

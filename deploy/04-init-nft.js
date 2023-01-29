@@ -1,5 +1,3 @@
-const { DEFAULT_NFT_ROYALTY_VAULT, DEFAULT_NFT_ROYALTY } = require("../helper-hardhat-config")
-
 module.exports = async ({ getNamedAccounts, deployments, network }) => {
     const { log } = deployments;
     const { deployer, admin, moderator } = await getNamedAccounts();
@@ -7,24 +5,15 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
     
     let characterNftContractInstance = await ethers.getContract("CharacterNftContract", deployer)
     let isInitialised = await characterNftContractInstance.isInitialised();
-    if (!isInitialised) {        
-        // Add user to moderator role
-        const moderatorAddress = moderator ? moderator : network.erc721moderatorAddress;
-        // Add user to minter role
-        const minterAddress = network.erc721minterAddress;
-        const minters = [];
-        if (minterAddress) {
-            minters.push(minterAddress);
-        }
-
-        // // Add store contract to minter role
-        // let storeContractInstance = await ethers.getContract("CharacterStoreContract", deployer)
-        // minters.push(storeContractInstance.address);
-
+    if (!isInitialised) {
         // Initialization
-        let nftRoyaltyVault = network.nftRoyaltyVault ? network.nftRoyaltyVault : DEFAULT_NFT_ROYALTY_VAULT;
-        let nftRoyalty = network.nftRoyalty ? network.nftRoyalty : DEFAULT_NFT_ROYALTY;
-        let transactionResponse = await characterNftContractInstance.init(admin, moderatorAddress, nftRoyaltyVault, minters, nftRoyalty);
+        const nftRoyaltyVault = process.env.NFT_ROYALTY_VAULT;
+        const nftRoyalty = process.env.NFT_ROYALTY ? parseInt(process.env.NFT_ROYALTY) : 1000; // DEFAULT: 10%
+        const minters = [];
+
+        //let nftRoyaltyVault = network.nftRoyaltyVault ? network.nftRoyaltyVault : nftRoyaltyVault;
+        //let nftRoyalty = network.nftRoyalty ? network.nftRoyalty : DEFAULT_NFT_ROYALTY;
+        let transactionResponse = await characterNftContractInstance.init(admin, moderator, nftRoyaltyVault, minters, nftRoyalty);
         await transactionResponse.wait(confirmations);
         log(`Initialization of CharacterNftContract Instance at ${characterNftContractInstance.address} finished.`);
 
@@ -43,4 +32,4 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
         log(`Initialization of CharacterNftContract already finished.`);
     }
 }
-module.exports.tags = ["all", "stage1", "init", "init-nft"];
+module.exports.tags = ["all", "init", "init-nft"];

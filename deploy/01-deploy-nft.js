@@ -13,4 +13,4 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
     });
     log(`NFT Instance at ${deployContract.address}`);
 }
-module.exports.tags = ["all", "stage1", "deploy", "nft"];
+module.exports.tags = ["all", "deploy", "nft"];
