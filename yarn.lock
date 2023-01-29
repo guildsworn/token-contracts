@@ -397,6 +397,11 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
+"@guildsworn/hardhat-guildsworn@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@guildsworn/hardhat-guildsworn/-/hardhat-guildsworn-1.0.1.tgz#e833f7a612bda02e246acc76f4ee3fa05a11009f"
+  integrity sha512-k1Q/ARsyO9Dh28yMdaoMkU/8AWdTThuBlkvTpdvXwUrnEn3yfVbTwIc+sXluyeoQBckMX6dqK1GtyMuCcwyskw==
+
 "@humanwhocodes/config-array@^0.10.5":
   version "0.10.7"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.10.7.tgz#6d53769fd0c222767e6452e8ebda825c22e9f0dc"

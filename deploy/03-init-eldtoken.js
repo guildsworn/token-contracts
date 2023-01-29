@@ -3,14 +3,15 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
     const { deployer, admin } = await getNamedAccounts();
     const confirmations = network.blockConfirmations || 1;
     
-    let eldCoinInstance = await ethers.getContract("EldfallTokenContract", deployer)
-    let isInitialised = await eldCoinInstance.isInitialised();
+    let eldfallTokenAddress = await guildsworn.getEldfallTokenAddress(false);
+    let eldfallTokenInstance = await ethers.getContractAt("EldfallTokenContract", eldfallTokenAddress, deployer)
+    let isInitialised = await eldfallTokenInstance.isInitialised();
     if (!isInitialised) {
         // Initialization
         const minters = [];
-        let transactionResponse = await eldCoinInstance.init(admin, minters);
+        let transactionResponse = await eldfallTokenInstance.init(admin, minters);
         await transactionResponse.wait(confirmations);
-        log(`Initialization of EldfallTokenContract Instance at ${eldCoinInstance.address} finished.`);
+        log(`Initialization of EldfallTokenContract Instance at ${eldfallTokenInstance.address} finished.`);
     } else {
         log(`Initialization of EldfallTokenContract already finished.`);
     }

@@ -10,6 +10,7 @@ require("hardhat-deploy-ethers");
 require("hardhat-gas-reporter");
 require('hardhat-docgen');
 require('solidity-coverage');
+require('@guildsworn/hardhat-guildsworn')
 
 const DEPLOYER_PRIVATE_KEY = process.env.DEPLOYER_PRIVATE_KEY;
 const ADMIN_PRIVATE_KEY = process.env.ADMIN_PRIVATE_KEY;
