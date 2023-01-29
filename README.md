@@ -29,7 +29,6 @@ cp contracts/[Contract name] contracts/interfaces/
 # Smart Contract deploy
 ## Before deploy
 1. Create `.env` file in root folder or copy and check `.env.example`
-2. Check and modify `helper-hardhat-config.js` - network specific settings.
 
 ### [Deploy parameters](https://github.com/wighawag/hardhat-deploy#1-hardhat-deploy)
 
