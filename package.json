@@ -1,6 +1,6 @@
 {
   "name": "@guildsworn/token-contracts",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Token smart contracts for eldfal",
   "homepage": "https://www.eldfall.com/",
   "repository": {
@@ -54,7 +54,7 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@nomiclabs/hardhat-ethers": "^2.1.1",
     "@nomiclabs/hardhat-etherscan": "^3.1.1",
-    "@oasisprotocol/sapphire-hardhat": "^1.0.3",
+    "@oasisprotocol/sapphire-hardhat": "file:../sapphire-paratime/integrations/hardhat",
     "@solidity-parser/parser": "^0.14.3",
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.3",
