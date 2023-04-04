@@ -267,16 +267,17 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	function _beforeTokenTransfer(
 		address from,
 		address to,
-		uint256 tokenId
+		uint256 firstTokenId,
+        uint256 batchSize
 	) internal override(ERC721, ERC721Enumerable) {
-		require(!isCharacterLocked(tokenId), "Token is locked!");
+		require(!isCharacterLocked(firstTokenId), "Token is locked!");
 		if (from != address(0) && to != address(0) && from != to) {
 			require(
-				isTransferable(getCharactersClass(tokenId)),
+				isTransferable(getCharactersClass(firstTokenId)),
 				"Token class is not transferable!"
 			);
 		}
-		super._beforeTokenTransfer(from, to, tokenId);
+		super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
 	}
 
 	function _burn(
