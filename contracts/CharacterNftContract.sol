@@ -222,7 +222,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 
 	function getCharactersByAccount(uint256 page_, uint256 pageSize_, address account_) public view returns (CharacterNftResult[] memory) {		
 		uint256 balance = balanceOf(account_);
-		uint256 startIndex = page_ * pageSize_;
+		uint256 startIndex = (page_-1) * pageSize_;
 		uint256 endIndex = startIndex + pageSize_;
 		if (endIndex > balance) {
 			endIndex = balance;
