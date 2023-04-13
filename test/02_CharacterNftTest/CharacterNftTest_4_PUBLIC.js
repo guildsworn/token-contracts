@@ -207,11 +207,11 @@ describe("CharacterNftTest_4_PUBLIC", function () {
         expect(token1Data.isTransferable).to.be.true;
     });
     it("getCharactersByAccount - No result", async function () {
-        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(0, 10, minter2.address);
+        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(1, 10, minter2.address);
         expect(myChars.length).to.equal(0);
     });
     it("getCharactersByAccount - Tester characters list", async function () {
-        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(0, 10, tester1.address);
+        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(1, 10, tester1.address);
         expect(myChars.length).to.equal(2);
     });
 });
