@@ -247,26 +247,19 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		return _baseUri;
 	}
 
-	function _beforeTokenTransfer(
-		address from,
-		address to,
-		uint256 firstTokenId,
-        uint256 batchSize
-	) internal override(ERC721, ERC721Enumerable) {
-		require(!isCharacterLocked(firstTokenId), "Token is locked!");
-		if (from != address(0) && to != address(0) && from != to) {
+	function _beforeTokenTransfer(address from_, address to_, uint256 firstTokenId_, uint256 batchSize_) internal override(ERC721, ERC721Enumerable) {
+		require(!isCharacterLocked(firstTokenId_), "Token is locked!");
+		if (from_ != address(0) && to_ != address(0) && from_ != to_) {
 			require(
-				isTransferable(getCharactersClass(firstTokenId)),
+				isTransferable(getCharactersClass(firstTokenId_)),
 				"Token class is not transferable!"
 			);
 		}
-		super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
+		super._beforeTokenTransfer(from_, to_, firstTokenId_, batchSize_);
 	}
 
-	function _burn(
-		uint256 tokenId
-	) internal override(ERC721, ERC721URIStorage, ERC721Royalty) {
-		super._burn(tokenId);
+	function _burn(uint256 tokenId_) internal override(ERC721, ERC721URIStorage, ERC721Royalty) {
+		super._burn(tokenId_);
 	}
 
 	// **************************************************
@@ -276,17 +269,9 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	event CharacterCreated(uint indexed tokenId, bytes32 characterClass);
 	event CharacterLocked(address indexed userAddress, uint slotId, uint indexed characterId, address indexed lockedAt);
 	event CharacterUnlocked(address indexed userAddress, uint slotId, uint indexed characterId, address indexed unlockedAt);
-	event CharacterNotTransferableChanged(
-		bytes32 classHash,
-		bool oldValue,
-		bool newValue
-	);
+	event CharacterNotTransferableChanged(bytes32 classHash, bool oldValue, bool newValue);
 	event WhitelistGuildChanged(address indexed guildAddress, bool oldValue, bool newValue);
 	event VaultAddressChanged(address oldValue, address newValue);
 	event RoyaltyNumeratorChanged(uint96 oldValue, uint96 newValue);
-	event TokensSalvaged(
-		address indexed tokenAddress,
-		address indexed userAddress,
-		uint amount
-	);
+	event TokensSalvaged(address indexed tokenAddress, address indexed userAddress, uint amount);
 }
