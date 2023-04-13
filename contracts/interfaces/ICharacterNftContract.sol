@@ -1,54 +1,39 @@
 //SPDX-License-Identifier: Unlicense 
 pragma solidity ^0.8.4;
 interface ICharacterNftContract {
-  function DEFAULT_ADMIN_ROLE (  ) external view returns ( bytes32 );
+  struct CharacterNftResult {
+		uint256 id;
+		string uri;
+		bytes32 class;
+		address lockedAt;
+		bool isTransferable;
+	}
+
   function MINTER_ROLE (  ) external view returns ( bytes32 );
   function MODERATOR_ROLE (  ) external view returns ( bytes32 );
-  function approve ( address to, uint256 tokenId ) external;
-  function balanceOf ( address owner ) external view returns ( uint256 );
   function burn ( uint256 characterId_ ) external;
   function externalUnlockCharacter ( address userAddress_, uint256 slotId_, uint256 characterId_, address guildAddress_, bytes memory extraData_ ) external;
-  function getApproved ( uint256 tokenId ) external view returns ( address );
   function getBaseURI (  ) external view returns ( string memory );
   function getCharacterLockedAt ( uint256 tokenId_ ) external view returns ( address );
   function getCharactersClass ( uint256 tokenId_ ) external view returns ( bytes32 );
-  function getRoleAdmin ( bytes32 role ) external view returns ( bytes32 );
-  function getRoleMember ( bytes32 role, uint256 index ) external view returns ( address );
-  function getRoleMemberCount ( bytes32 role ) external view returns ( uint256 );
   function getRoyaltyNumerator (  ) external view returns ( uint96 );
   function getVaultAddress (  ) external view returns ( address );
-  function grantRole ( bytes32 role, address account ) external;
-  function hasRole ( bytes32 role, address account ) external view returns ( bool );
   function init ( address defaultAdminAddress_, address moderatorAddress_, address vaultAddress_, address[] memory minterAddressArray_, uint96 royaltyNumerator_ ) external;
-  function isApprovedForAll ( address owner, address operator ) external view returns ( bool );
   function isCharacterLocked ( uint256 tokenId_ ) external view returns ( bool );
   function isGuildWhitelisted ( address guildAddress_ ) external view returns ( bool );
   function isInitialised (  ) external view returns ( bool );
-  function isTransferable ( bytes32 classHash ) external view returns ( bool );
+  function isTransferable ( bytes32 classHash_ ) external view returns ( bool );
   function lockCharacter ( uint256 slotId_, uint256 characterId_, address guildAddress_, bytes memory extraData_ ) external;
-  function name (  ) external view returns ( string memory );
   function owner (  ) external view returns ( address );
-  function ownerOf ( uint256 tokenId ) external view returns ( address );
-  function renounceRole ( bytes32 role, address account ) external;
-  function revokeRole ( bytes32 role, address account ) external;
-  function royaltyInfo ( uint256 _tokenId, uint256 _salePrice ) external view returns ( address, uint256 );
   function safeMint ( address to_, bytes32 classHash_ ) external returns ( uint256 );
-  function safeTransferFrom ( address from, address to, uint256 tokenId ) external;
-  function safeTransferFrom ( address from, address to, uint256 tokenId, bytes memory data ) external;
   function salvageTokensFromContract ( address tokenAddress_, address to_, uint256 amount_ ) external;
-  function setApprovalForAll ( address operator, bool approved ) external;
   function setBaseURI ( string memory baseUri_ ) external;
-  function setNotTransferable ( bytes32 classHash, bool nonTransferable_ ) external;
+  function setNotTransferable ( bytes32 classHash_, bool nonTransferable_) external;
   function setRoyaltyNumerator ( uint96 royaltyNumerator_ ) external;
   function setTokenURI ( uint256 tokenId_, string memory tokenUri_ ) external;
   function setVaultAddress ( address vaultAddress_ ) external;
   function setWhitelistGuild ( address guildAddress_, bool isWhitelisted_ ) external;
-  function supportsInterface ( bytes4 interfaceId ) external view returns ( bool );
-  function symbol (  ) external view returns ( string memory );
-  function tokenByIndex ( uint256 index ) external view returns ( uint256 );
-  function tokenOfOwnerByIndex ( address owner, uint256 index ) external view returns ( uint256 );
-  function tokenURI ( uint256 tokenId ) external view returns ( string memory );
-  function totalSupply (  ) external view returns ( uint256 );
-  function transferFrom ( address from, address to, uint256 tokenId ) external;
   function unlockCharacter ( uint256 slotId_, uint256 characterId_, address guildAddress_, bytes memory extraData_ ) external;
+  function getCharacter(uint256 tokenId_) external view returns (CharacterNftResult memory);
+  function getCharactersByAccount(uint256 page_, uint256 pageSize_, address account_) external view returns (CharacterNftResult[] memory);
 }

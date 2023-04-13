@@ -195,4 +195,23 @@ describe("CharacterNftTest_4_PUBLIC", function () {
     it("transferFrom - Sucess", async function () {
         await CharacterNftInstance.connect(tester1).transferFrom(tester1.address, tester2.address, token1);
     });
+    it("getCharacter - Character does not exists!", async function () {
+        await expect(CharacterNftInstance.connect(tester1).getCharacter(10)).to.be.revertedWith('Character does not exists!');
+    });
+    it("getCharacter - Sucess", async function () {
+        let token1Data = await CharacterNftInstance.connect(tester1).getCharacter(token1);
+        expect(token1Data.id).to.equal(token1);
+        expect(token1Data.uri).to.equal("https://www.eldfall.com/characterMetadata/0");
+        expect(token1Data.class).to.equal(character1Hash);
+        expect(token1Data.lockedAt).to.equal('0x0000000000000000000000000000000000000000');
+        expect(token1Data.isTransferable).to.be.true;
+    });
+    it("getCharactersByAccount - No result", async function () {
+        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(0, 10, minter2.address);
+        expect(myChars.length).to.equal(0);
+    });
+    it("getCharactersByAccount - Tester characters list", async function () {
+        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(0, 10, tester1.address);
+        expect(myChars.length).to.equal(2);
+    });
 });

@@ -10,7 +10,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "./interfaces/ICharacterNftContract.sol";
 import "./interfaces/IGuild.sol";
 
-contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721URIStorage,	AccessControlEnumerable														
+contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721URIStorage,	AccessControlEnumerable, ICharacterNftContract												
 {
 	using Counters for Counters.Counter;
 
@@ -59,11 +59,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		_revokeRole(DEFAULT_ADMIN_ROLE, _msgSender());
 	}
 
-	function salvageTokensFromContract(
-		address tokenAddress_,
-		address to_,
-		uint amount_
-	) public onlyRole(DEFAULT_ADMIN_ROLE) {
+	function salvageTokensFromContract(address tokenAddress_, address to_, uint amount_) public onlyRole(DEFAULT_ADMIN_ROLE) {
 		bytes memory callPayload = abi.encodePacked(
 			bytes4(keccak256(bytes("transfer(address,uint256)"))),
 			abi.encode(to_, amount_)
@@ -76,10 +72,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	// **************************************************
 	// ****************** MINTER REGION *****************
 	// **************************************************
-	function safeMint(
-		address to_,
-		bytes32 classHash_
-	) public onlyRole(MINTER_ROLE) returns (uint256) {
+	function safeMint(address to_, bytes32 classHash_) public onlyRole(MINTER_ROLE) returns (uint256) {
 		uint256 tokenId = _tokenIdCounter.current();
 		_tokenIdCounter.increment();
 		_safeMint(to_, tokenId);
@@ -92,53 +85,31 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 	// **************************************************
 	// ***************** MODERATOR REGION ***************
 	// **************************************************
-	function setTokenURI(
-		uint256 tokenId_,
-		string memory tokenUri_
-	) public onlyRole(MODERATOR_ROLE) {
+	function setTokenURI(uint256 tokenId_,string memory tokenUri_) public onlyRole(MODERATOR_ROLE) {
 		_setTokenURI(tokenId_, tokenUri_);
 	}
 
-	function setBaseURI(
-		string memory baseUri_
-	) public onlyRole(MODERATOR_ROLE) {
+	function setBaseURI(string memory baseUri_) public onlyRole(MODERATOR_ROLE) {
 		emit BaseUriChanged(_baseUri, baseUri_);
 		_baseUri = baseUri_;
 	}
 
-	function setVaultAddress(
-		address vaultAddress_
-	) public onlyRole(MODERATOR_ROLE) {
+	function setVaultAddress(address vaultAddress_) public onlyRole(MODERATOR_ROLE) {
 		require(_vaultAddress != vaultAddress_, "Value is already set!");
 		emit VaultAddressChanged(_vaultAddress, vaultAddress_);
 		_vaultAddress = vaultAddress_;
 	}
 
-	function setRoyaltyNumerator(
-		uint96 royaltyNumerator_
-	) public onlyRole(MODERATOR_ROLE) {
-		require(
-			_royaltyNumerator != royaltyNumerator_,
-			"Value is already set!"
-		);
+	function setRoyaltyNumerator(uint96 royaltyNumerator_) public onlyRole(MODERATOR_ROLE) {
+		require(_royaltyNumerator != royaltyNumerator_, "Value is already set!");
 		emit RoyaltyNumeratorChanged(_royaltyNumerator, royaltyNumerator_);
 		_royaltyNumerator = royaltyNumerator_;
 	}
 
-	function setNotTransferable(
-		bytes32 classHash,
-		bool nonTransferable_
-	) public onlyRole(MODERATOR_ROLE) {
-		require(
-			_nonTransferable[classHash] != nonTransferable_,
-			"Value is already set!"
-		);
-		emit CharacterNotTransferableChanged(
-			classHash,
-			_nonTransferable[classHash],
-			nonTransferable_
-		);
-		_nonTransferable[classHash] = nonTransferable_;
+	function setNotTransferable(bytes32 classHash_, bool nonTransferable_) public onlyRole(MODERATOR_ROLE) {
+		require(_nonTransferable[classHash_] != nonTransferable_, "Value is already set!");
+		emit CharacterNotTransferableChanged(classHash_, _nonTransferable[classHash_], nonTransferable_);
+		_nonTransferable[classHash_] = nonTransferable_;
 	}
 
 	function setWhitelistGuild(address guildAddress_, bool isWhitelisted_) public onlyRole(MODERATOR_ROLE) {
@@ -186,30 +157,6 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		_burn(characterId_);
 	}
 
-	function tokenURI(
-		uint256 tokenId
-	) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-		return super.tokenURI(tokenId);
-	}
-
-	function supportsInterface(
-		bytes4 interfaceId
-	)
-		public
-		view
-		override(
-			ERC721,
-			ERC721Royalty,
-			ERC721Enumerable,
-			AccessControlEnumerable
-		)
-		returns (bool)
-	{
-		return
-			interfaceId == type(ICharacterNftContract).interfaceId ||
-			super.supportsInterface(interfaceId);
-	}
-
 	// **************************************************
 	// ************** PUBLIC GETTERS REGION *************
 	// **************************************************
@@ -225,8 +172,8 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		return _characterClass[tokenId_];
 	}
 
-	function isTransferable(bytes32 classHash) public view returns (bool) {
-		return !_nonTransferable[classHash];
+	function isTransferable(bytes32 classHash_) public view returns (bool) {
+		return !_nonTransferable[classHash_];
 	}
 
 	function isGuildWhitelisted(address guildAddress_) public view returns (bool) {
@@ -253,10 +200,46 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 		return _baseURI();
 	}
 
-	function ownerOf(uint256 tokenId) public view override returns (address) {
-		return super.ownerOf(tokenId);
+	function tokenURI(uint256 tokenId_) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+		return super.tokenURI(tokenId_);
 	}
 
+	function getCharacter(uint256 tokenId_) public view returns (CharacterNftResult memory) {
+		require(_exists(tokenId_), "Character does not exists!");
+
+		bytes32 tokenClass = getCharactersClass(tokenId_);
+		CharacterNftResult memory result = CharacterNftResult(
+			{
+				id: tokenId_,
+				uri: tokenURI(tokenId_),
+				class: tokenClass,
+				lockedAt: getCharacterLockedAt(tokenId_),
+				isTransferable: isTransferable(tokenClass)
+			});
+
+		return result;
+	}
+
+	function getCharactersByAccount(uint256 page_, uint256 pageSize_, address account_) public view returns (CharacterNftResult[] memory) {		
+		uint256 balance = balanceOf(account_);
+		uint256 startIndex = page_ * pageSize_;
+		uint256 endIndex = startIndex + pageSize_;
+		if (endIndex > balance) {
+			endIndex = balance;
+		}
+
+		CharacterNftResult[] memory result = new CharacterNftResult[](endIndex - startIndex);
+		for (uint256 i = startIndex; i < endIndex; i++) {
+			result[i - startIndex] = getCharacter(tokenOfOwnerByIndex(account_, i));
+		}
+
+		return result;
+	}
+
+	function supportsInterface(bytes4 interfaceId_) public view override(ERC721, ERC721Royalty, ERC721Enumerable, AccessControlEnumerable) returns (bool)
+	{
+		return interfaceId_ == type(ICharacterNftContract).interfaceId || super.supportsInterface(interfaceId_);
+	}
 	// **************************************************
 	// ********** OVERRIDES INTERNAL REGION *************
 	// **************************************************
