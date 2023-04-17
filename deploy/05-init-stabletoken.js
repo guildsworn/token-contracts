@@ -1,4 +1,4 @@
-module.exports = async ({ getNamedAccounts, deployments, network }) => {
+module.exports = async ({ getNamedAccounts, deployments, network, guildsworn }) => {
     const { log } = deployments;
     const { deployer, player1, player2, player3 } = await getNamedAccounts();
     const confirmations = network.blockConfirmations || 1;

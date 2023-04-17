@@ -214,4 +214,15 @@ describe("CharacterNftTest_4_PUBLIC", function () {
         let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(1, 10, tester1.address);
         expect(myChars.length).to.equal(2);
     });
+    it("getCharactersByAccount - Tester characters list - many items", async function () {
+        await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character1Hash);
+        await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character1Hash);
+        await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character1Hash);
+        await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character2Hash);
+        await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character1Hash);
+        await CharacterNftInstance.connect(minter1).safeMint(tester1.address, character1Hash);
+
+        let myChars = await CharacterNftInstance.connect(tester1).getCharactersByAccount(1, 10, tester1.address);
+        expect(myChars.length).to.equal(8);
+    });
 });
