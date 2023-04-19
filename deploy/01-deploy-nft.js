@@ -1,7 +1,7 @@
 module.exports = async ({ getNamedAccounts, deployments, network, guildsworn }) => {
     const { deploy, log } = deployments;
     const { deployer } = await getNamedAccounts();
-    const confirmations = network.blockConfirmations || 1;
+    const confirmations = network.config.blockConfirmations || 1;
 
     let characterNftAddress = await guildsworn.getCharacterNftAddress(false);
     if (!characterNftAddress || characterNftAddress == "0x0000000000000000000000000000000000000000") {

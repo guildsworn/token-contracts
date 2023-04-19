@@ -1,7 +1,7 @@
 module.exports = async ({ getNamedAccounts, deployments, network }) => {
     const { log } = deployments;
     const { deployer, admin } = await getNamedAccounts();
-    const confirmations = network.blockConfirmations || 1;
+    const confirmations = network.config.blockConfirmations || 1;
     
     let eldfallTokenAddress = await guildsworn.getEldfallTokenAddress(false);
     let eldfallTokenInstance = await ethers.getContractAt("EldfallTokenContract", eldfallTokenAddress, deployer)

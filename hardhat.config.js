@@ -59,6 +59,7 @@ module.exports = {
             live: false,
             saveDeployments: true,
             nftRoyaltyVault : "0xbc56536f82834f23e14E9a805AFE8692E37B2BDc",
+            blockConfirmations: 1,
             tags: ["test", "local"]
         },
         localhost: {
@@ -73,14 +74,16 @@ module.exports = {
           accounts: ACCOUNTS,
           live: false,
           saveDeployments: true,
+          blockConfirmations: 2,
           tags: ["test", "oasis", "testnet"]
         },
         oasis_sapphire_mainnet: {
           url: `https://sapphire.oasis.io`,
           chainId: 23294,
           accounts: ACCOUNTS,
-          live: true,
+          live: false,
           saveDeployments: true,
+          blockConfirmations: 2,
           tags: ["live", "oasis", "mainnet", "production"]
         },
     },

@@ -1,7 +1,7 @@
 module.exports = async ({ getNamedAccounts, deployments, network, guildsworn }) => {
     const { log } = deployments;
     const { deployer, admin, moderator } = await getNamedAccounts();
-    const confirmations = network.blockConfirmations || 1;
+    const confirmations = network.config.blockConfirmations || 1;
 
     let characterNftAddress = await guildsworn.getCharacterNftAddress();
     let characterNftInstance = await ethers.getContractAt("CharacterNftContract", characterNftAddress, deployer)
