@@ -31,7 +31,7 @@ contract CharacterNftContract is ERC721, ERC721Enumerable, ERC721Royalty, ERC721
 
 	constructor() ERC721("EldfallCharacterNft", "ECN") {
 		_grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
-		_baseUri = "https://www.eldfall.com/characterMetadata/";
+		_baseUri = "http://guildsworn.com/characterMetadata/";
 	}
 
 	// **************************************************
