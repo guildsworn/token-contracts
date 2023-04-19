@@ -2,7 +2,7 @@
   "name": "@guildsworn/token-contracts",
   "version": "1.0.17",
   "description": "Token smart contracts for eldfal",
-  "homepage": "https://www.eldfall.com/",
+  "homepage": "https://guildsworn.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/guildsworn/token-contracts.git"
