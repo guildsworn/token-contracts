@@ -47,6 +47,11 @@ npx hardhat deploy --write true --network oasis_sapphire_testnet
 npx hardhat deploy --write true --network oasis_sapphire_mainnet
 ```
 
+## Verify contract 
+```shell
+yarn hardhat --network oasis_sapphire_testnet sourcify
+```
+
 # Publish the NPM package
 ```shell
 yarn publish
